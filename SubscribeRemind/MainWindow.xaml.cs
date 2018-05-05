@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.IO;
+
+
 namespace SubscribeRemind
 {
     /// <summary>
@@ -20,9 +23,38 @@ namespace SubscribeRemind
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+
+            Main.Content = new MainPage();
+
+
+
+
         }
     }
+
 }
+
+
+    //public Boolean Load()
+    //{
+    //    String path = System.IO.Path.Combine(Environment.CurrentDirectory, "SavedSubscriptions.txt");
+    //    try
+    //    {
+    //        using (StreamReader sr = new StreamReader(path))
+    //        {
+    //            string line = "";
+    //            char[] delimitersChars = { ' ', ',', '.', ':', '\t' };
+
+    //            while ((line = sr.ReadLine()) != null)
+    //            {
+    //                String[] parts = line.Split(delimitersChars, StringSplitOptions.RemoveEmptyEntries);
+    //            }
+    //        }
+    //    }
+    //}
+
+
