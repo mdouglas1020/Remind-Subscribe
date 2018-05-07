@@ -60,6 +60,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RemovePage.xaml.cs">
+      <DependentUpon>RemovePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubList.cs" />
     <Compile Include="SubListString.cs" />
     <Compile Include="Subscription.cs" />
@@ -92,6 +95,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RemovePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewSubPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

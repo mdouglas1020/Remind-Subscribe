@@ -20,9 +20,21 @@ namespace SubscribeRemind
         public static bool alreadyChecked = false;
         public DateTime firstChargeDT = new DateTime();
         public DateTime dateOfReminder = new DateTime();
+        public int deleted = 0;
         public Subscription()
         {
 
+        }
+        public Subscription(string name, double amount, int renewalType, int reminderReq, string firstCharge, int deleted)
+        {
+            this.name = name;
+            this.amount = amount;
+            this.renewalType = renewalType;
+            this.reminderReq = reminderReq;
+            this.firstCharge = firstCharge;
+            firstChargeDT = DateTime.ParseExact(this.firstCharge, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            this.deleted = deleted;
         }
         public Subscription(string name, double amount, int renewalType, int reminderReq, string firstCharge)
         {
@@ -48,9 +60,9 @@ namespace SubscribeRemind
                 using (StreamWriter sw = new StreamWriter(path, true))
                 {
                     
-                        string line = newSub.name + "," + newSub.amount.ToString() + "," + newSub.renewalType.ToString() + "," + newSub.reminderReq.ToString() + "," + newSub.firstCharge.ToString();
+                        string line = newSub.name + "," + newSub.amount.ToString() + "," + newSub.renewalType.ToString() + "," + newSub.reminderReq.ToString() + "," + newSub.firstCharge.ToString() + "," + newSub.deleted.ToString();
                         sw.WriteLine(line);
-                   
+                  
                 }
                 return true;
             }
@@ -74,11 +86,13 @@ namespace SubscribeRemind
                     {
                         String[] words = line.Split(',');
 
-                        SubList.subscriptions.Add(new Subscription(words[0], double.Parse(words[1]), int.Parse(words[2]), int.Parse(words[3]), words[4]));
+                        SubList.subscriptions.Add(new Subscription(words[0], double.Parse(words[1]), int.Parse(words[2]), int.Parse(words[3]), words[4], int.Parse(words[5])));
+
 
                     }
-
+                   
                 }
+                
                 alreadyChecked = true;
                 return true;
             }

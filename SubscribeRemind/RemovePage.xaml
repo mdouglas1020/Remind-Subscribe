@@ -1,0 +1,41 @@
+﻿<Page x:Class="SubscribeRemind.RemovePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SubscribeRemind"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RemovePage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="41*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="returnButton" Content="Return" Click="ReturnButton_Click" Margin="0,0,709,7"/>
+        <ListView x:Name="subListListView" HorizontalAlignment="Left" Height="329" Margin="48,2,0,0" VerticalAlignment="Top" Width="686" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
+            <ListView.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.105"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="-0.637"/>
+                </TransformGroup>
+            </ListView.RenderTransform>
+
+            <ListView.View>
+                <GridView x:Name="gridView">
+                    <GridViewColumn Header="Company" Width="80" DisplayMemberBinding="{Binding Company}"/>
+                    <GridViewColumn Header="Subscription Type" Width="100" DisplayMemberBinding="{Binding RenewalType}"/>
+                    <GridViewColumn Header="Reminder type" Width="100" DisplayMemberBinding="{Binding ReminderType}"/>
+                    <GridViewColumn Header="Amount" Width="70" DisplayMemberBinding="{Binding Amount}"/>
+                    <GridViewColumn Header="First Charge" Width="100" DisplayMemberBinding="{Binding FirstCharge}"/>
+                    <GridViewColumn Header="Next Charge" Width="100" DisplayMemberBinding="{Binding NextCharge}"/>
+                    <GridViewColumn Header="Reminder Date" Width="110" DisplayMemberBinding="{Binding ReminderDate}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="removeButton" Content="Remove" HorizontalAlignment="Left" Margin="342,345,0,0" Grid.Row="1" VerticalAlignment="Top" Width="93" Height="28" Click="Remove_Click"/>
+    </Grid>
+</Page>

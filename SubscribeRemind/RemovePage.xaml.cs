@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,21 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace SubscribeRemind
 {
     /// <summary>
-    /// Interaction logic for ViewSubPage.xaml
+    /// Interaction logic for RemovePage.xaml
     /// </summary>
-    public partial class ViewSubPage : Page
+    public partial class RemovePage : Page
     {
         List<SubListString> items = new List<SubListString>();
-        public ViewSubPage()
+        public RemovePage()
         {
             InitializeComponent();
-            
-
-           
 
             foreach (Subscription sub in SubList.subscriptions)
             {
@@ -35,7 +32,7 @@ namespace SubscribeRemind
                 {
                     DateTime dateOfRenewal = new DateTime();
                     DateTime dateOfReminder = new DateTime();
-
+                    
                     string renewalString = "";
                     string reminderString = "";
 
@@ -180,15 +177,13 @@ namespace SubscribeRemind
 
                     subListListView.ItemsSource = items;
 
-
-
-
                 }
 
+
             }
+
+
         }
-
-
         private void ReturnButton_Click(object sender, RoutedEventArgs e)
         {
             Frame pageframe = null;
@@ -205,13 +200,33 @@ namespace SubscribeRemind
             }
         }
 
-        private void subListListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            int position = subListListView.SelectedIndex;
-            DateTime reminderDate = SubList.subscriptions[position].dateOfReminder;
-            TimeSpan ts = reminderDate - DateTime.Now;
-            string output = string.Format("{0} Days, {1} Hours, {2} Minutes, {3} Seconds", ts.Days, ts.Hours, ts.Minutes, ts.Seconds);
-            MessageBox.Show(output, "Countdown to Reminder Notification");
+            string path = System.IO.Path.Combine(Environment.CurrentDirectory, "SavedSubscriptions.txt");
+
+            var file = new List<string>(File.ReadAllLines(path));
+            int pos = subListListView.SelectedIndex;
+            file.RemoveAt(pos);
+            File.WriteAllLines(path, file.ToArray());
+
+            SubList.subscriptions.Remove(SubList.subscriptions[subListListView.SelectedIndex]);
+
+            
+
+            Frame pageframe = null;
+            DependencyObject currparent = VisualTreeHelper.GetParent(this);
+            while (currparent != null && pageframe == null)
+            {
+                pageframe = currparent as Frame;
+                currparent = VisualTreeHelper.GetParent(currparent);
+            }
+
+            if (pageframe != null)
+            {
+                pageframe.Source = new Uri("MainPage.xaml", UriKind.Relative);
+            }
+
+
         }
-    }        
+    }
 }
